@@ -3,13 +3,13 @@
 
 const int ledPin = 7;                                         // Which pin on the Arduino is connected to the NeoPixels?
 const int numLeds = 1;                                        // How many NeoPixels are attached to the Arduino?
-unsigned long LEDTimer = 0;                                   // Unsigned long variables are extended size variables for number storage, and store 32 bits (4 bytes)
+unsigned  LEDTimer = 0;                                       // Unsigned long variables are extended size variables for number storage, and store 32 bits (4 bytes)
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(numLeds, ledPin, NEO_GRB + NEO_KHZ800); 
 
 void setup() {                                                // Run once.
   strip.begin();                                              // Initializes the NeoPixel library.
-  strip.setBrightness(70);                                    // Set the brightness of the LED(Strip).
+  strip.setBrightness(90);                                    // Set the brightness of the LED(Strip).
   pinMode(2, INPUT);                                          // Set pin 2 to input.
   pinMode(5, INPUT);                                          // Set pin 2 to input.
   Keyboard.begin();                                           // Initializes the Keyboard library.
@@ -53,9 +53,9 @@ void loop() {                                                 // Run repeatedly.
     LEDTimer = 0; 
   }                                                           // If Pin 2 or 5 is triggered(high) then reset the timer(LEDTimer).
 
-  if (LEDTimer >= 180000UL)  {                                // If LEDTimer is bigger or equal to 180000 then...
+  if (LEDTimer >= 35000UL)  {                                 // If LEDTimer is bigger or equal to 35000( 1.5 mins) then...
 
-    rainbow(30);                                              // Run rainbow, colour changing delay 30 millisecond.
+    rainbow(25);                                              // Run rainbow, colour changing delay 30 millisecond.
   }
 
 
@@ -68,7 +68,6 @@ void rainbow(uint8_t wait) {
   for (j = 0; j < 256; j++) {
     for (i = 0; i < strip.numPixels(); i++) {
       strip.setPixelColor(i, Wheel((i * 1 + j) & 255));       // Input a value 0 to 255 to get a color value.`
-      LEDTimer = 0;
     }
     strip.show();// Display on the LED Strip.
     if (digitalRead(2) == HIGH  || digitalRead(5) == HIGH) {
